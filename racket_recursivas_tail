@@ -1,0 +1,116 @@
+#lang racket
+;variables para usar
+(define lista_vacia '())
+
+;(define nums '(1 2 3 4 5))
+;(define years '(5 6 7 8 9))
+
+;(length nums)
+;(list-ref nums 2)
+;(list-ref nums(- (length nums) 1))
+;(define new_years (append years '(10))) ; no esta entrando a years ¿se crea una lista x que no puedo acceder?
+;(append nums new_years)
+;(list 11 12 13 14 15)
+
+;(append years (list 11 12 13 14 15))
+;(display new_years)
+
+(display "\n-------------------------------------------------------------------------------------")
+(define nolan '("Inception" "Memento" "The Dark Knight"))
+(define tarantino '("Once Upon a Time in Hollywood" "Pulp Fiction" "Inglorious Basterds"))
+(display "\n")
+(display nolan)
+(display "\n")
+(display tarantino)
+
+(define directors (list nolan tarantino))
+(display "\n")
+(display directors)
+;nolan
+(define alumnos (list (list "Jannire" "20193553" 20 16 17)
+                      (list "Luciana" "20193791" 21 17 16)))
+
+;-----Definir una funcion que reciba como argumento de entrada:
+;-----nombre, codigo, edad, lista de alumnos
+;-----y agregar el alumno al final de la lista
+
+(define (agregar nombre codigo edad lista)
+  (append lista
+          (list (list nombre codigo edad)))
+)
+
+;-----Definir una funcion que reciba como argumento de entrada:
+;-----pelicula, director, año, lista de pelas
+;-----y agregar la pelicula al final de la lista
+
+(display "\n")
+(define films (list
+               (list "Inception" "Christopher Nolan" 2010)
+               (list "Pulp Fiction" "Quentin Tarantino" 1994)
+               (list "Tenet" "Christopher Nolan" 2020)
+               (list "Parasite" "Bong Joon-ho" 2019)
+               (list "Get Out" "Jordan Peele" 2017)
+               (list "Midsommar" "Ari Aster" 2019)))
+
+(define (colecciones pelicula director año listt)
+  (append listt
+          (list (list pelicula director año))
+  )
+)
+
+(define films2 (colecciones "Little Women" "Gretta Gerwig" 2019 films))
+(define films3 (colecciones "Whiplash" "Damien Chazelle" 2014 films2)) ;no esta la anterior
+
+(display "\n")
+(display films3)
+(display "\n")
+
+;---definir una funcion arumento entrada lista de alumnos, suma la edad de los alumnos en 1
+(define (plus_year lista)
+  (list (car lista)
+        (list-ref lista 1)
+        (+ 1 (list-ref lista 2))
+   )
+)
+
+(define (sumar_edad lista new_lista)
+  (if (empty? lista)
+    new_lista
+     (sumar_edad (cdr lista) (append new_lista (list (plus_year (car lista)))))
+   )
+)
+
+(define edades (sumar_edad alumnos lista_vacia))
+edades
+(define edades2 (sumar_edad edades lista_vacia))
+edades2
+
+;films3
+
+;--------Implementar una funcion para el promedio de cada alumno
+;--------argumento entrada: lista alumnos
+;--------return: '(("Jannire" 17)("Luciana" 17))
+(define (aver lista)
+  (define suma (+ (list-ref lista 3) (list-ref lista 4)))
+  (list (car lista)      
+        (exact->inexact (/ suma 2))
+)
+  )
+
+(define (promedio_tail lista new_lista)
+  (if (empty? lista)
+      new_lista
+      (promedio_tail (cdr lista) (append new_lista (list (aver (car lista)))))
+  )
+)
+
+(define (promedio lista)
+  (promedio_tail lista '()))
+
+alumnos
+(promedio alumnos)
+
+(define (f f_operador num1 num2)
+  (f_operador num1 num2)
+  
+)
